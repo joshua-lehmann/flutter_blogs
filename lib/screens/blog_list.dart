@@ -40,20 +40,18 @@ class _BlogListState extends State<BlogList> {
                           ),
                           Text(blogList[index].author,
                               style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  fontSize: 12)),
+                                  fontStyle: FontStyle.italic, fontSize: 12)),
                         ],
                       ),
-                    subtitle: Text(blogList[index].content),
-                    trailing: ElevatedButton(
-                      child: const Icon(Icons.delete),
-                      onPressed: () {
-                        setState(() {
-                          blogList.removeAt(index);
-                        });
-                      },
-                    )
-                  ),
+                      subtitle: Text(blogList[index].content),
+                      trailing: ElevatedButton(
+                        child: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            blogList.removeAt(index);
+                          });
+                        },
+                      )),
                 );
               },
             ),
