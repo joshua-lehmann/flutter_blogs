@@ -1,7 +1,17 @@
 class Blog {
-  final String title;
-  final String content;
-  final String author;
+  int id;
+  String title;
+  String content;
+  DateTime publishedAt;
+  bool isLikedByMe = false;
 
-  Blog(this.title, this.content, this.author);
+  Blog({
+    this.id = 0,
+    required this.title,
+    required this.content,
+    required this.publishedAt,
+  });
+
+  String get publishedDateString =>
+      "${publishedAt.day}.${publishedAt.month}.${publishedAt.year}";
 }

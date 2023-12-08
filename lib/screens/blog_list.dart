@@ -1,56 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blogs_test/repositorys/blog_repoistory.dart';
+import 'package:provider/provider.dart';
 
 import '../models/blog.dart';
+import '../providers/BlogProvider.dart';
 
-class BlogList extends StatefulWidget {
+class BlogList extends StatelessWidget {
   const BlogList({super.key});
 
   @override
-  State<BlogList> createState() => _BlogListState();
-}
-
-class _BlogListState extends State<BlogList> {
-  List<Blog> blogList = [
-    Blog("Blog 1", "This is blog 1", "JFK"),
-    Blog("Blog 2", "This is blog 2", "JFK"),
-    Blog("Blog 3", "This is blog 3", "JFK")
-  ];
-
-  void addBlog(Blog blog) {
-    setState(() {
-      blogList.add(blog);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var blogProvider = Provider.of<BlogProvider>(context);
+    var blogs = blogProvider.blogs;
+
+    BlogRepository blogRepository = BlogRepository.instance;
+
     return Scaffold(
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: blogList.length,
+              itemCount: blogs.length,
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
-                      title: Row(
+                      subtitle: Text(blogs[index].content),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Expanded(
-                            child: Text(blogList[index].title),
+                          ElevatedButton(
+                              onPressed: () {
+                                blogRepository.toggleLikeInfo(blogs[index].id);
+                                blogProvider.refresh();
+                              },
+                              child: Icon(blogs[index].isLikedByMe
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline)),
+                          ElevatedButton(
+                            onPressed: () {
+                              blogProvider.deleteBlogPost(blogs[index]);
+                            },
+                            child: const Icon(Icons.delete),
                           ),
-                          Text(blogList[index].author,
-                              style: const TextStyle(
-                                  fontStyle: FontStyle.italic, fontSize: 12)),
                         ],
-                      ),
-                      subtitle: Text(blogList[index].content),
-                      trailing: ElevatedButton(
-                        child: const Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            blogList.removeAt(index);
-                          });
-                        },
                       )),
                 );
               },
@@ -58,11 +50,6 @@ class _BlogListState extends State<BlogList> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => addBlog(Blog("New Blog ${blogList.length + 1}",
-              "This is a new blog yay", "Obama"))),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
