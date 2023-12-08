@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_blogs_test/repositorys/blog_repoistory.dart';
 
 import '../models/blog.dart';
+import '../repositories/blog_repository.dart';
 
 class BlogProvider with ChangeNotifier {
   BlogRepository blogRepository = BlogRepository.instance;

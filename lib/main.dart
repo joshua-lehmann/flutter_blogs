@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blogs_test/models/blog.dart';
-import 'package:flutter_blogs_test/providers/BlogProvider.dart';
+import 'package:flutter_blogs_test/providers/blog_provider.dart';
 import 'package:flutter_blogs_test/screens/blog_list.dart';
 import 'package:provider/provider.dart';
 import 'color_schemes.g.dart';
