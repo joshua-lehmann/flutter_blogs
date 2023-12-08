@@ -15,7 +15,7 @@ class BlogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var blogProvider = Provider.of<BlogProvider>(context);
+    var blogProvider = context.watch<BlogProvider>();
     BlogRepository blogRepository = BlogRepository.instance;
 
     return Card(
